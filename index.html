@@ -1,20 +1,61 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>final
-    </title>
+    <title>Final Exam</title>
   </head>
   <body>
-    <h1>New USER</h1>
-    <input type="text" id="title" placeholder="NAME"><br/><br/>
-    <input type="text" id="title" placeholder="EMAIL"><br/><br/>
-    <input type="text" id="title" placeholder="AGE"><br/><br/>
+      <style>
+          body {
+    background-color: lightblue;
+    width:200px;
+}
 
-    <button id="submit">Add</button>
+      </style>
+    <h1>New User</h1>
     
+    <input type="text" id="task-name" placeholder="NAME" required><br/><br/>
     
+    <textarea id="content" placeholder="EMAIL" required></textarea><br/>
+    
+   
+    <textarea id="notes" placeholder="AGE" required></textarea><br/>
+    
+      <button id="add">ADD</button>
+    
+    <button id="getArticles">user profiles details</button>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+      
+      
+    <script>
+      var task = {task-name:"", priority:"", notes:""};
+      $('#add').click(function(event){
+        task.task-name = $('#task-name').val();
+        task.priority = $('#priority').val();
+        task.notes = $('#notes').val();
+        $.ajax({
+          method:"POST",
+          url:"/task/create",
+          data: task
+        }).done(function(response){
+          console.log(response);
+        }).fail(function(response){
+          console.log(response.responseText);
+        });
+      });
+      $('#getTasks').click(function(event){
+        $.ajax({
+          method:"GET",
+          url:"/task/list"
+        }).done(function(response){
+          console.log(response);
+        }).fail(function(response){
+          console.log(response.responseText);
+        });
+      });
+    </script>
   </body>
 </html>
-    
